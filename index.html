@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Learn to code with Apent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--bg:#f3f6f4;--panel:#fff;--ink:#1b2420;--mute:#66726c;--line:#dde4e0;--accent:#2fb36b;--accent-ink:#fff;--accent-deep:#1d8a50;--callout:#e8f6ee;--ok:#17794a;--bad:#d03a34;--ed:#f4f7f5;--edink:#1b2420;--cyan:#0d6b42;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0f1512;--panel:#18201c;--ink:#edf3ef;--mute:#9aa8a0;--line:#2b3631;--accent:#43d487;--accent-ink:#052a14;--accent-deep:#2aa968;--callout:#1c2b24;--ok:#5be3a8;--bad:#ff8a80;--ed:#0c110e;--edink:#e6efe9;--cyan:#8fe3b4}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0f1512;--panel:#18201c;--ink:#edf3ef;--mute:#9aa8a0;--line:#2b3631;--accent:#43d487;--accent-ink:#052a14;--accent-deep:#2aa968;--callout:#1c2b24;--ok:#5be3a8;--bad:#ff8a80;--ed:#0c110e;--edink:#e6efe9;--cyan:#8fe3b4}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;color:var(--ink);background:var(--bg);font:16px/1.6 "Poppins",system-ui,sans-serif;min-height:100vh}
+.wrap{max-width:1060px;margin:0 auto;padding:16px 20px 28px}
+header{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:18px;background:var(--panel);border:2px solid var(--line);border-radius:20px;padding:10px 18px}
+#bit{width:127px;height:150px;flex:none;transform-origin:50% 100%;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-5px)}}
+#bit[data-mood="happy"]{animation:hop .6s ease 2}
+@keyframes hop{40%{transform:translateY(-14px) scale(1.05)}}
+#bit[data-mood="oops"]{animation:shake .4s ease 1}
+@keyframes shake{25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
+#bit[data-mood="think"]{animation:none;transform:rotate(-4deg)}
+.bubble{position:relative;flex:1;min-width:200px;background:var(--callout);border-radius:16px;padding:12px 16px;font-weight:500}
+.bubble:before{content:"";position:absolute;left:-7px;top:34px;width:14px;height:14px;background:var(--callout);transform:rotate(45deg)}
+.rank{min-width:210px;flex:none}
+.rank b{font-size:1.05rem;font-weight:700}
+.xp{height:12px;background:var(--line);border-radius:6px;overflow:hidden;margin-top:8px}
+.xp i{display:block;height:100%;width:0;background:var(--accent);border-radius:6px;transition:width .5s}
+.app{display:grid;grid-template-columns:260px 1fr;gap:18px}
+@media(max-width:760px){.app{grid-template-columns:1fr}#bit{width:96px;height:114px}.rank{width:100%}}
+nav,main{background:var(--panel);border:2px solid var(--line);border-radius:20px;padding:16px;min-width:0}
+main{padding:26px}
+nav{align-self:start}
+select{display:block;width:100%;margin:4px 0 8px;padding:9px;font:inherit;background:var(--panel);color:var(--ink);border:2px solid var(--line);border-radius:12px}
+nav button.lv{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:none;border:0;color:var(--ink);font:inherit;font-weight:500;padding:8px;border-radius:12px;cursor:pointer}
+nav button.lv:hover:not(:disabled){background:var(--bg)}
+nav button.lv:disabled{color:var(--mute);cursor:not-allowed}
+nav button.lv[aria-current="true"]{background:var(--accent);color:var(--accent-ink)}
+.n{width:28px;height:28px;border-radius:50%;border:2px solid var(--line);flex:none;display:grid;place-items:center;font-size:12px;font-weight:600}
+.done .n{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+h2{font-size:1.7rem;font-weight:700;letter-spacing:-.01em;margin:0 0 10px;line-height:1.25}
+.task{background:var(--callout);border-radius:14px;padding:12px 16px;margin:18px 0}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em;background:var(--bg);color:var(--cyan);padding:1px 6px;border-radius:6px}
+textarea{display:block;width:100%;min-height:170px;background:var(--ed);color:var(--edink);border:2px solid var(--line);border-bottom:0;border-radius:14px 14px 0 0;padding:14px;font:14px/1.6 ui-monospace,Menlo,Consolas,monospace;resize:vertical;tab-size:2}
+textarea:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+pre{margin:0;background:var(--panel);color:var(--ok);border:2px solid var(--line);border-radius:0 0 14px 14px;padding:12px 14px;min-height:64px;font:14px/1.6 ui-monospace,Menlo,Consolas,monospace;overflow-x:auto;white-space:pre-wrap}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.btn{font:inherit;font-weight:600;border:2px solid var(--line);background:var(--panel);color:var(--ink);padding:9px 18px;border-radius:12px;cursor:pointer;box-shadow:0 3px 0 var(--line)}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);box-shadow:0 3px 0 var(--accent-deep)}
+.btn.primary:active{box-shadow:0 1px 0 var(--accent-deep)}
+.msg{margin-top:12px;font-weight:600;min-height:1.5em;white-space:pre-wrap}
+.msg.ok{color:var(--ok)}.msg.bad{color:var(--bad)}
+.hint{color:var(--mute);font-size:.9rem}
+@media (prefers-reduced-motion:reduce){#bit,#bit[data-mood]{animation:none}.xp i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <svg id="bit" viewBox="-8 0 140 166" role="img" aria-label="Apent, the streetwear fox mascot">
+    <path d="M80 116C108 106 130 122 125 152C114 134 98 134 80 132Z" fill="#f28c28"/><path d="M84 140C112 146 126 126 123 106C114 124 100 132 80 132Z" fill="#d9731a"/><ellipse cx="123" cy="145" rx="5.5" ry="8" transform="rotate(-8 123 145)" fill="#fff4e6"/>
+    <path d="M44 120L68 120L48 149H22Z" fill="#3b5ea0"/><path d="M58 120L82 120L107 149H82Z" fill="#3b5ea0"/>
+    <path d="M60 120L68 120L48 149H40Z" fill="#2f4d86"/><path d="M58 120L68 120L90 149H82Z" fill="#2f4d86"/>
+    <g transform="translate(9 -12)"><ellipse cx="26" cy="168" rx="17" ry="5.5" fill="#f4f1ea"/><path d="M10 166Q10 154 26 154L34 156Q40 162 40 166Z" fill="#d62f3a"/><path d="M18 164q8-7 17-4q-8 3-17 4Z" fill="#1b1b26"/></g>
+    <g transform="translate(-9.5 -12)"><ellipse cx="104" cy="168" rx="17" ry="5.5" fill="#f4f1ea"/><path d="M88 166Q88 158 96 156L104 154Q118 154 118 166Z" fill="#d62f3a"/><path d="M96 164q8-7 17-4q-8 3-17 4Z" fill="#1b1b26"/></g>
+    <g transform="rotate(-5 62 122)">
+    <path d="M14.7 10.8L9.3 13.2L19.3 35.2L24.7 32.8Z" fill="#2a2a38"/><path d="M26.2 36.3L21.8 39.7L95.8 135.7L100.2 132.3Z" fill="#1b1b26"/>
+    <ellipse cx="24" cy="38" rx="8" ry="2.8" transform="rotate(-35 24 38)" fill="#c9a24a"/>
+    <path d="M34 82C34 74 44 70 60 70C76 70 86 74 86 82L92 128C72 136 48 136 28 128Z" fill="#cf2c36"/>
+    <path d="M78 72L86 82L92 128L82 131Z" fill="#b9262f"/>
+    <path d="M44 112h32l-4 15H48Z" fill="#a91f29"/>
+    <ellipse cx="92" cy="106" rx="10" ry="22" transform="rotate(-12 92 106)" fill="#cf2c36"/><circle cx="84" cy="127" r="6.5" fill="#1b1b26"/>
+    <rect x="0" y="-8.5" width="29" height="17" rx="8.5" transform="translate(36 88) rotate(213.7)" fill="#cf2c36"/><rect x="22" y="-9" width="7" height="18" rx="3" transform="translate(36 88) rotate(213.7)" fill="#a91f29"/>
+    <circle cx="6" cy="68" r="7" fill="#1b1b26"/><ellipse cx="0" cy="60" rx="3" ry="6" transform="rotate(-30 0 60)" fill="#f28c28"/>
+    <rect x="0" y="-2.2" width="69.4" height="4.4" transform="translate(38 74) rotate(48.5)" fill="#1b1b26"/>
+    <ellipse cx="60" cy="74" rx="30" ry="12" fill="#a91f29"/>
+    <rect x="52" y="80" width="2.2" height="20" rx="1.1" fill="#f4e9e9"/><rect x="66" y="80" width="2.2" height="20" rx="1.1" fill="#f4e9e9"/>
+    <polygon points="56,90 64,90 60,100" fill="#cfd3da"/>
+    <g transform="translate(23 3) scale(.62)">
+      <polygon points="22,52 18,8 54,32" fill="#f28c28"/><polygon points="28,43 26,22 43,34" fill="#ff9eb0"/>
+      <polygon points="98,52 102,8 66,32" fill="#f28c28"/><polygon points="92,43 94,22 77,34" fill="#ff9eb0"/>
+      <path d="M60 28C82 28 100 38 110 62L88 102C80 108 70 110 60 110C50 110 40 108 32 102L10 62C20 38 38 28 60 28Z" fill="#f28c28"/>
+      <path d="M10 62L32 102C40 108 50 110 60 110C70 110 80 108 88 102L110 62C98 76 80 80 60 80C40 80 22 76 10 62Z" fill="#fff4e6"/>
+      <ellipse cx="41" cy="64" rx="12" ry="10" fill="#fff"/><ellipse cx="79" cy="64" rx="12" ry="10" fill="#fff"/>
+      <ellipse cx="60" cy="88" rx="7" ry="5" fill="#1b1b26"/>
+      <g data-m="idle oops"><circle cx="41" cy="64" r="8" fill="#ffb02e"/><circle cx="79" cy="64" r="8" fill="#ffb02e"/><ellipse cx="41" cy="64" rx="2.8" ry="6.5" fill="#1b1b26"/><ellipse cx="79" cy="64" rx="2.8" ry="6.5" fill="#1b1b26"/></g>
+      <g data-m="think"><circle cx="43" cy="59" r="8" fill="#ffb02e"/><circle cx="81" cy="59" r="8" fill="#ffb02e"/><ellipse cx="43" cy="58" rx="2.8" ry="6.5" fill="#1b1b26"/><ellipse cx="81" cy="58" rx="2.8" ry="6.5" fill="#1b1b26"/></g>
+      <g fill="#1b1b26">
+        <g data-m="idle"><rect x="0" y="-2.5" width="26" height="5" rx="2.5" transform="translate(28 50) rotate(20.6)"/><rect x="0" y="-2.5" width="26" height="5" rx="2.5" transform="translate(92 50) rotate(159.4)"/><path d="M49 95Q60 106 71 95Q60 100 49 95Z"/></g>
+        <g data-m="oops"><rect x="0" y="-2.5" width="26" height="5" rx="2.5" transform="translate(28 58) rotate(-11.8)"/><rect x="0" y="-2.5" width="26" height="5" rx="2.5" transform="translate(92 58) rotate(191.8)"/><path d="M51 103Q60 95 69 103Q60 99 51 103Z"/></g>
+        <g data-m="happy"><path d="M33 68Q41 54 49 68Q41 61 33 68Z"/><path d="M71 68Q79 54 87 68Q79 61 71 68Z"/></g>
+        <rect data-m="think" x="54" y="97.5" width="12" height="4" rx="2"/>
+      </g>
+      <path data-m="happy" d="M46 93q14 22 28 0z" fill="#7a1f2a"/>
+      <g data-m="idle" fill="#fff"><polygon points="52,97 57,98.5 54,105"/><polygon points="68,97 63,98.5 66,105"/></g>
+      <g data-m="happy" fill="#fff"><polygon points="50,94 56,94 53,101"/><polygon points="70,94 64,94 67,101"/></g>
+      <ellipse cx="24" cy="80" rx="7" ry="4.5" fill="#ff8fa3"/><ellipse cx="96" cy="80" rx="7" ry="4.5" fill="#ff8fa3"/>
+    </g>
+    </g>
+  </svg>
+  <div class="bubble" id="say" aria-live="polite"></div>
+  <div class="rank"><b id="rank"></b> <span class="hint" id="xptext"></span><div class="xp"><i id="xpfill"></i></div></div>
+</header>
+<div class="app">
+  <nav aria-label="Levels">
+    <label class="hint" for="lang">Language</label>
+    <select id="lang"><option value="js">JavaScript</option><option value="py">Python</option></select>
+    <div class="hint" id="note"></div>
+    <div class="hint" id="count" style="margin-top:10px"></div>
+    <div id="list" style="margin-top:8px"></div>
+    <div class="row"><button class="btn" id="reset" type="button">Reset progress</button></div>
+  </nav>
+  <main>
+    <h2 id="title"></h2>
+    <div id="explain"></div>
+    <div class="task" id="task"></div>
+    <textarea id="code" spellcheck="false" aria-label="Code editor"></textarea>
+    <pre id="out" aria-live="polite">Output appears here.</pre>
+    <div class="row">
+      <button class="btn primary" id="run" type="button">Run and check</button>
+      <button class="btn" id="hintBtn" type="button">Show hint (half XP)</button>
+      <button class="btn" id="next" type="button" hidden>Next level</button>
+    </div>
+    <div class="msg" id="msg"></div>
+    <div class="hint" id="hint" hidden style="white-space:pre-wrap"></div>
+  </main>
+</div>
+</div>
+<script>
+var M="Computers are great at math. <code>+</code> <code>-</code> <code>*</code> <code>/</code> and parentheses work like a calculator.";
+var LESSONS=[
+{t:"Say hello",task:"Print exactly <code>Hello, world!</code>",out:"Hello, world!",
+ e:["Programs talk to you with <code>console.log()</code>. Whatever you put inside the parentheses gets printed. Text goes in quotes.","Programs talk to you with <code>print()</code>. Whatever you put inside the parentheses gets printed. Text goes in quotes."],
+ start:["// Write your code below\n","# Write your code below\n"],hint:["console.log(\"Hello, world!\");","print(\"Hello, world!\")"]},
+{t:"Variables",task:"Using the <code>name</code> variable, print <code>Hi, Ada</code>.",out:"Hi, Ada",
+ e:["A variable stores a value under a name. <code>const city = \"Oslo\";</code> saves the text. Use backticks and <code>${…}</code> to put a variable inside text: <code>`I live in ${city}`</code>.","A variable stores a value under a name. <code>city = \"Oslo\"</code> saves the text. Put <code>f</code> before the quotes and use <code>{…}</code> to place a variable inside text: <code>f\"I live in {city}\"</code>."],
+ start:["const name = \"Ada\";\n// print the greeting using name\n","name = \"Ada\"\n# print the greeting using name\n"],hint:["console.log(`Hi, ${name}`);","print(f\"Hi, {name}\")"]},
+{t:"Do the math",task:"Print the result of 12 times 5.",out:"60",e:[M,M],
+ start:["// try: console.log(2 + 3)\n","# try: print(2 + 3)\n"],hint:["console.log(12 * 5);","print(12 * 5)"]},
+{t:"Text tricks",task:"Print <code>word</code> in capital letters: <code>CODE</code>.",out:"CODE",
+ e:["Text has built-in tools. <code>word.toUpperCase()</code> turns it into capitals.","Text has built-in tools. <code>word.upper()</code> turns it into capitals."],
+ start:["const word = \"code\";\n","word = \"code\"\n"],hint:["console.log(word.toUpperCase());","print(word.upper())"]},
+{t:"Decisions with if",task:"If <code>temp</code> is above 25, print <code>Hot</code>. Otherwise print <code>Cool</code>.",out:"Hot",
+ e:["<code>if (condition) { … } else { … }</code> runs different code depending on whether something is true. Compare with <code>&gt;</code>, <code>&lt;</code> and <code>===</code>.","<code>if condition:</code> runs the indented lines below it when something is true, and <code>else:</code> covers the rest. Compare with <code>&gt;</code>, <code>&lt;</code> and <code>==</code>. Indent with two spaces."],
+ start:["const temp = 30;\n","temp = 30\n"],hint:["if (temp > 25) { console.log(\"Hot\"); } else { console.log(\"Cool\"); }","if temp > 25:\n  print(\"Hot\")\nelse:\n  print(\"Cool\")"]},
+{t:"Loops",task:"Print the numbers 1 to 5, one per line.",out:"1\n2\n3\n4\n5",
+ e:["A loop repeats code. <code>for (let i = 1; i &lt;= 3; i++) { … }</code> starts <code>i</code> at 1 and runs the block until <code>i</code> passes 3.","A loop repeats code. <code>for i in range(1, 4):</code> runs the indented lines with <code>i</code> as 1, 2, 3. The end number is not included."],
+ start:["for (let i = 1; i < 2; i++) {\n  \n}\n","for i in range(1, 2):\n  \n"],hint:["Change the condition to i <= 5, then console.log(i) inside the braces.","Change the range to range(1, 6), then print(i) on an indented line."]},
+{t:"Add it up",task:"Add the numbers 1 to 10 into <code>total</code>, then print it.",out:"55",
+ e:["Loops can build a result. Start a running total at 0, then add to it each time around: <code>total += i</code>.","Loops can build a result. Start a running total at 0, then add to it each time around: <code>total += i</code>."],
+ start:["let total = 0;\n// add 1 to 10 into total, then print it\n","total = 0\n# add 1 to 10 into total, then print it\n"],hint:["for (let i = 1; i <= 10; i++) { total += i; }\nconsole.log(total);","for i in range(1, 11):\n  total += i\nprint(total)"]},
+{t:"Functions",task:"Finish <code>double</code> so it returns <code>n</code> times 2. The last line prints <code>double(21)</code>, which should be <code>42</code>.",out:"42",
+ e:["A function is a reusable recipe. <code>function add(a, b) { return a + b; }</code> takes inputs and gives back a result with <code>return</code>.","A function is a reusable recipe. <code>def add(a, b):</code> followed by an indented <code>return a + b</code> takes inputs and gives back a result."],
+ start:["function double(n) {\n  \n}\nconsole.log(double(21));\n","def double(n):\n  \nprint(double(21))\n"],hint:["Inside the braces write: return n * 2;","On the indented line write: return n * 2"]},
+{t:"Lists",task:"Print the second fruit from the list.",out:"banana",
+ e:["A list holds many values in order: <code>const fruits = [\"apple\", \"banana\"];</code>. Counting starts at 0, so <code>fruits[0]</code> is apple.","A list holds many values in order: <code>fruits = [\"apple\", \"banana\"]</code>. Counting starts at 0, so <code>fruits[0]</code> is apple."],
+ start:["const fruits = [\"apple\", \"banana\", \"cherry\"];\n","fruits = [\"apple\", \"banana\", \"cherry\"]\n"],hint:["console.log(fruits[1]);","print(fruits[1])"]},
+{t:"Add and count",task:"Add <code>\"kiwi\"</code> to the list, then print how many fruits there are.",out:"2",
+ e:["Add to a list with <code>push</code> and count its items with <code>.length</code>: <code>fruits.push(\"fig\")</code>.","Add to a list with <code>append</code> and count its items with <code>len()</code>: <code>fruits.append(\"fig\")</code>."],
+ start:["const fruits = [\"apple\"];\n","fruits = [\"apple\"]\n"],hint:["fruits.push(\"kiwi\");\nconsole.log(fruits.length);","fruits.append(\"kiwi\")\nprint(len(fruits))"]},
+{t:"Loop over a list",task:"Print each number in <code>nums</code> doubled, one per line.",out:"2\n4\n6\n8",
+ e:["<code>for (const n of nums) { … }</code> visits every item in a list, one at a time.","<code>for n in nums:</code> visits every item in a list, one at a time."],
+ start:["const nums = [1, 2, 3, 4];\n","nums = [1, 2, 3, 4]\n"],hint:["for (const n of nums) {\n  console.log(n * 2);\n}","for n in nums:\n  print(n * 2)"]},
+{t:"Even or odd",task:"If <code>n</code> is even print <code>even</code>, otherwise print <code>odd</code>.",out:"odd",
+ e:["The <code>%</code> sign gives the remainder after dividing. <code>10 % 2</code> is 0, so even numbers leave no remainder.","The <code>%</code> sign gives the remainder after dividing. <code>10 % 2</code> is 0, so even numbers leave no remainder."],
+ start:["const n = 7;\n","n = 7\n"],hint:["if (n % 2 === 0) { console.log(\"even\"); } else { console.log(\"odd\"); }","if n % 2 == 0:\n  print(\"even\")\nelse:\n  print(\"odd\")"]},
+{t:"Two inputs",task:"Write <code>add(a, b)</code> so it returns the sum. The last line prints <code>add(7, 5)</code>.",out:"12",
+ e:["Functions can take more than one input. Separate them with commas, and use each one inside the function.","Functions can take more than one input. Separate them with commas, and use each one inside the function."],
+ start:["function add(a, b) {\n  \n}\nconsole.log(add(7, 5));\n","def add(a, b):\n  \nprint(add(7, 5))\n"],hint:["return a + b;","return a + b"]},
+{t:"Fizz Buzz boss",xp:20,task:"Print 1 to 5, one per line. But print <code>Fizz</code> for multiples of 3 and <code>Buzz</code> for multiples of 5.",out:"1\n2\nFizz\n4\nBuzz",
+ e:["Boss level! Combine loops and decisions. Use <code>else if</code> to check more than one case.","Boss level! Combine loops and decisions. Use <code>elif</code> to check more than one case."],
+ start:["for (let i = 1; i <= 5; i++) {\n  \n}\n","for i in range(1, 6):\n  \n"],hint:["if (i % 3 === 0) { console.log(\"Fizz\"); } else if (i % 5 === 0) { console.log(\"Buzz\"); } else { console.log(i); }","if i % 3 == 0:\n  print(\"Fizz\")\nelif i % 5 == 0:\n  print(\"Buzz\")\nelse:\n  print(i)"]}
+];
+var NOTES=["Runs directly in your browser.","Python here supports the basics: print, variables, if/else, for range, def."];
+var RANKS=["Newbie","Sprout","Coder","Hacker","Wizard","Master","Legend"],PER=30;
+var KEY="learn-code-v3",state={cur:0,lang:"js",xp:0,done:{},hinted:{},code:{}};
+try{var s=JSON.parse(localStorage.getItem(KEY)||"null");if(s)state=s}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+var $=function(i){return document.getElementById(i)};
+function L(){return state.lang==="py"?1:0}
+function k(i){return state.lang+i}
+function pick(a){return a[Math.floor(Math.random()*a.length)]}
+function mood(m,text){
+  $("bit").dataset.mood=m;document.querySelectorAll("#bit [data-m]").forEach(function(g){g.style.display=g.dataset.m.split(" ").indexOf(m)>-1?"":"none"});
+  if(text)$("say").textContent=text;
+}
+function boom(){
+  if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  var cols=["#2fb36b","#ffc83d","#4aa3ff","#ff6b6b","#a78bfa"];
+  for(var i=0;i<30;i++){
+    var p=document.createElement("span");
+    p.style.cssText="position:fixed;left:50%;top:30%;width:8px;height:12px;border-radius:2px;pointer-events:none;z-index:9;background:"+pick(cols);
+    document.body.appendChild(p);
+    var a=Math.random()*6.28,d=120+Math.random()*220;
+    p.animate([{transform:"translate(0,0) rotate(0)",opacity:1},{transform:"translate("+Math.cos(a)*d+"px,"+(Math.sin(a)*d+160)+"px) rotate("+Math.random()*720+"deg)",opacity:0}],{duration:900+Math.random()*500,easing:"cubic-bezier(.2,.8,.3,1)"}).onfinish=(function(el){return function(){el.remove()}})(p);
+  }
+}
+function expr(s){
+  s=s.replace(/\bf(["'])(.*?)\1/g,function(_,q,b){return "`"+b.replace(/\{/g,"${")+"`"});
+  return s.replace(/\bprint\(/g,"console.log(").replace(/\blen\(([^()]*)\)/g,"($1).length").replace(/\.append\(/g,".push(").replace(/\.upper\(\)/g,".toUpperCase()").replace(/\.lower\(\)/g,".toLowerCase()").replace(/\band\b/g,"&&").replace(/\bor\b/g,"||").replace(/\bnot\b/g,"!").replace(/\bTrue\b/g,"true").replace(/\bFalse\b/g,"false").replace(/\bNone\b/g,"null");
+}
+function py2js(src){
+  var out=[],st=[],m;
+  src.split("\n").forEach(function(raw){
+    var ln=raw.trim();
+    if(!ln||ln[0]==="#")return;
+    var ind=raw.match(/^ */)[0].length;
+    while(st.length&&st[st.length-1]>=ind){st.pop();out.push("}")}
+    if(/^else\s*:/.test(ln)){out[out.length-1]="} else {";st.push(ind);return}
+    if(m=ln.match(/^elif (.+):$/)){out[out.length-1]="} else if ("+expr(m[1])+") {";st.push(ind);return}
+    if(m=ln.match(/^if (.+):$/)){out.push("if ("+expr(m[1])+") {");st.push(ind)}
+    else if(m=ln.match(/^while (.+):$/)){out.push("while ("+expr(m[1])+") {");st.push(ind)}
+    else if(m=ln.match(/^for (\w+) in range\((.+)\):$/)){var a=m[2].split(","),lo=a.length>1?a[0]:"0",hi=a.length>1?a[1]:a[0];
+      out.push("for (var "+m[1]+" = "+lo+"; "+m[1]+" < "+hi+"; "+m[1]+"++) {");st.push(ind)}
+    else if(m=ln.match(/^for (\w+) in (.+):$/)){out.push("for (var "+m[1]+" of "+expr(m[2])+") {");st.push(ind)}
+    else if(m=ln.match(/^def (\w+)\((.*)\):$/)){out.push("function "+m[1]+"("+m[2]+") {");st.push(ind)}
+    else if(m=ln.match(/^(\w+)\s*=\s*([^=].*)$/)){out.push("var "+m[1]+" = "+expr(m[2])+";")}
+    else out.push(expr(ln)+";");
+  });
+  while(st.length){st.pop();out.push("}")}
+  return out.join("\n");
+}
+function open_(i){return i===0||!!state.done[k(i-1)]}
+function renderNav(){
+  var h="",n=0;
+  LESSONS.forEach(function(l,i){var d=state.done[k(i)],ok=open_(i);if(d)n++;
+    h+='<button type="button" class="lv '+(d?"done":"")+'" data-i="'+i+'"'+(ok?"":" disabled")+' aria-current="'+(i===state.cur)+'"><span class="n">'+(d?"✓":ok?(i+1):"🔒")+'</span>'+l.t+'</button>'});
+  $("list").innerHTML=h;
+  $("count").textContent=n+" of "+LESSONS.length+" levels cleared";
+  var lv=Math.min(RANKS.length,1+Math.floor(state.xp/PER));
+  $("rank").textContent="Level "+lv+" "+RANKS[lv-1];
+  $("xptext").textContent=state.xp+" XP";
+  $("xpfill").style.width=(lv===RANKS.length?100:(state.xp%PER)/PER*100)+"%";
+}
+function load(i){
+  state.cur=i;var l=LESSONS[i],x=L();
+  $("lang").value=state.lang;$("note").textContent=NOTES[x];
+  $("title").textContent="Level "+(i+1)+": "+l.t;$("explain").innerHTML=l.e[x];$("task").innerHTML="<strong>Your task:</strong> "+l.task;
+  $("code").value=state.code[k(i)]!=null?state.code[k(i)]:l.start[x];
+  $("out").textContent="Output appears here.";$("msg").textContent="";$("msg").className="msg";
+  $("hint").hidden=true;$("hintBtn").textContent="Show hint (half XP)";
+  $("next").hidden=!(state.done[k(i)]&&i<LESSONS.length-1);
+  mood("idle",state.done[k(i)]?"You already cleared this one. Replay it or move on!":"Level "+(i+1)+": "+l.t+". You’ve got this!");
+  renderNav();save();
+}
+function run(){
+  var i=state.cur,l=LESSONS[i],src=$("code").value,logs=[];
+  state.code[k(i)]=src;
+  var fake={log:function(){logs.push([].slice.call(arguments).map(String).join(" "))}};
+  var err=null;
+  try{new Function("console",state.lang==="py"?py2js(src):src)(fake)}catch(e){err=e}
+  var text=logs.join("\n"),m=$("msg");
+  $("out").textContent=err?(text?text+"\n":"")+"Error: "+err.message:(text||"(nothing printed yet)");
+  if(err){m.textContent="Your code has an error. Check spelling, quotes, brackets and indentation.";m.className="msg bad";mood("oops",pick(["Oops, a bug! Bugs are normal. Take a look at the error.","Hmm, that one crashed. Check the details above."]))}
+  else if(text===l.out){
+    var base=l.xp||10,first=!state.done[k(i)],gain=first?(state.hinted[k(i)]?base/2:base):0;
+    state.done[k(i)]=true;state.xp+=gain;
+    m.className="msg ok";$("next").hidden=i>=LESSONS.length-1;
+    m.textContent=(i===LESSONS.length-1?"Correct! Every level cleared. ":"Correct! Level cleared. ")+(gain?"+"+gain+" XP":"");
+    mood("happy",pick(["Nailed it!","Boom! That’s correct.","You’re getting good at this!"]));boom();
+  }else{m.textContent="Not quite. Expected output:\n"+l.out;m.className="msg bad";mood("oops",pick(["So close! Compare your output with the expected one.","Not yet. Try again, you can do it!"]))}
+  renderNav();save();
+}
+$("run").onclick=run;
+$("next").onclick=function(){load(state.cur+1)};
+$("hintBtn").onclick=function(){var h=$("hint");h.hidden=!h.hidden;h.textContent="Hint: "+LESSONS[state.cur].hint[L()];
+  if(!h.hidden){if(!state.done[k(state.cur)])state.hinted[k(state.cur)]=true;mood("think","Here’s a nudge. Try it yourself first!");save()}
+  $("hintBtn").textContent=h.hidden?"Show hint (half XP)":"Hide hint"};
+$("list").onclick=function(e){var b=e.target.closest("button");if(b&&!b.disabled){state.code[k(state.cur)]=$("code").value;load(+b.dataset.i)}};
+$("lang").onchange=function(){state.code[k(state.cur)]=$("code").value;state.lang=this.value;if(!open_(state.cur))state.cur=0;load(state.cur)};
+$("reset").onclick=function(){state={cur:0,lang:state.lang,xp:0,done:{},hinted:{},code:{}};load(0)};
+$("code").addEventListener("keydown",function(e){
+  if(e.key==="Tab"){e.preventDefault();var t=this,p=t.selectionStart;t.value=t.value.slice(0,p)+"  "+t.value.slice(t.selectionEnd);t.selectionStart=t.selectionEnd=p+2}
+  if(e.key==="Enter"&&(e.ctrlKey||e.metaKey)){e.preventDefault();run()}
+});
+if(!open_(state.cur))state.cur=0;
+load(Math.min(state.cur||0,LESSONS.length-1));
+</script>
+</body>
+</html>
